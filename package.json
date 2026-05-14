@@ -1,0 +1,17 @@
+{
+  "name": "stellar-micro-streams-root",
+  "private": true,
+  "packageManager": "npm@10.8.2",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean && rm -rf node_modules packages/*/node_modules packages/contracts/target"
+  },
+  "devDependencies": {
+    "turbo": "latest"
+  }
+}

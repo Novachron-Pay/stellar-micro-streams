@@ -1,0 +1,8 @@
+{
+  "name": "@novapay/contracts",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "cargo build --target wasm32-unknown-unknown --release",
+    "clean": "cargo clean"
+  }
+}
