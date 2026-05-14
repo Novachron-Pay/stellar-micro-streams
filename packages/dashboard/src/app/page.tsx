@@ -1,4 +1,11 @@
+"use client";
+
+import { useStreamAnimation } from "../hooks/useStreamAnimation";
+
 export default function Dashboard() {
+  const incomingBalance = useStreamAnimation(5000.00, 1000.00); // Base 5000, adding 1000/month
+  const outgoingBalance = useStreamAnimation(-142.50, -50.00);  // Base -142.50, subtracting 50/month
+
   return (
     <main>
       <header className="flex justify-between items-center mb-12 border-b border-zinc-800 pb-6">
@@ -27,7 +34,9 @@ export default function Dashboard() {
               <button className="text-sm text-zinc-500 hover:text-white transition-colors">Cancel</button>
             </div>
             <div className="flex items-end gap-2">
-              <span className="text-3xl font-mono">-142.50</span>
+              <span className="text-3xl font-mono">
+                {outgoingBalance.toFixed(4)}
+              </span>
               <span className="text-zinc-500 mb-1">USDC / month</span>
             </div>
           </div>
@@ -42,7 +51,9 @@ export default function Dashboard() {
               </div>
             </div>
             <div className="flex items-end gap-2">
-              <span className="text-3xl font-mono text-emerald-400">+5000.00</span>
+              <span className="text-3xl font-mono text-emerald-400">
+                +{incomingBalance.toFixed(4)}
+              </span>
               <span className="text-zinc-500 mb-1">USDC / month</span>
             </div>
           </div>
