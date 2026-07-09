@@ -1,4 +1,21 @@
 export default function Dashboard() {
+  const [balance, setBalance] = React.useState(0);
+  const [flowRate, setFlowRate] = React.useState(0);
+  const [elapsedSeconds, setElapsedSeconds] = React.useState(0);
+
+  useStreamAnimation(baseBalance, flowRate);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setElapsedSeconds((prev) => prev + 1);
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [flowRate]);
+
+  const currentDisplay = baseBalance + (elapsedSeconds * flowRate);
+  setBalance(currentDisplay);
+
   return (
     <main>
       <header className="flex justify-between items-center mb-12 border-b border-zinc-800 pb-6">
@@ -13,10 +30,7 @@ export default function Dashboard() {
 
       <section className="mb-10">
         <h2 className="text-xl font-semibold mb-4">Active Streams</h2>
-        
-        {/* MOCK UI FOR STREAMS */}
         <div className="grid gap-4 md:grid-cols-2">
-          {/* Outgoing Stream */}
           <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl relative overflow-hidden">
             <div className="absolute top-0 left-0 w-1 h-full bg-red-500"></div>
             <div className="flex justify-between items-start mb-4">
@@ -27,12 +41,11 @@ export default function Dashboard() {
               <button className="text-sm text-zinc-500 hover:text-white transition-colors">Cancel</button>
             </div>
             <div className="flex items-end gap-2">
-              <span className="text-3xl font-mono">-142.50</span>
+              <span className="text-3xl font-mono">-{balance.toFixed(2)}</span>
               <span className="text-zinc-500 mb-1">USDC / month</span>
             </div>
           </div>
 
-          {/* Incoming Stream */}
           <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl relative overflow-hidden">
             <div className="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
             <div className="flex justify-between items-start mb-4">
@@ -42,7 +55,7 @@ export default function Dashboard() {
               </div>
             </div>
             <div className="flex items-end gap-2">
-              <span className="text-3xl font-mono text-emerald-400">+5000.00</span>
+              <span className="text-3xl font-mono text-emerald-400">+{balance.toFixed(2)}</span>
               <span className="text-zinc-500 mb-1">USDC / month</span>
             </div>
           </div>
